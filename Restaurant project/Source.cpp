@@ -90,128 +90,6 @@ public:
 		//delete[]data;
 	}
 };
-//
-
-class Notification {
-	int quantity;
-	string tableNo;
-public:
-	Stack<Meal>meals;
-	Notification() = default;
-	Notification(const int& quantity, const string& tableNo) {
-		SetNotificationQuantity(quantity);
-		SetTableNo(tableNo);
-	}
-	void SetNotificationQuantity(const int& quantity) {
-		if (quantity > 0) {
-			this->quantity = quantity;
-		}
-		//throw "Quantity of notification is null";
-	}
-	void SetTableNo(const string& tableNo) {
-		if (!tableNo.empty()) {
-			this->tableNo = tableNo;
-		}
-		//throw "No of table is empty";
-	}
-
-	int GetQuantity()const noexcept {
-		return quantity;
-	}
-	string GetTableNo()const noexcept {
-		return tableNo;
-	}
-
-	void AddMealToNotification(Meal* meal) {
-		meals.Push(*meal);
-	}
-	friend ostream& operator<<(ostream& out, const Notification& notifications);
-};
-ostream& operator<<(ostream& out, Notification& notifications) {
-	for (size_t i = 0; i < notifications.meals.GetSize(); i++)
-	{
-		out << notifications.meals[i] << endl;
-	}
-	out << "Meal count : " << notifications.GetQuantity() << endl;
-	out << "Table no : " << notifications.GetTableNo() << endl;
-	return out;
-}
-
-class ClientNotification {
-	string content;
-	string tableNo;
-public:
-	ClientNotification() = default;
-	ClientNotification(const string& content, const string& tableNo) {
-		SetContent(content);
-		SetTableNo(tableNo);
-	}
-
-	void SetContent(const string& content) {
-		if (!content.empty()) {
-			this->content = content;
-		}
-		//throw "Content is null of client notification";
-	}
-	void SetTableNo(const string& tableNo) {
-		if (!tableNo.empty()) {
-			this->tableNo = tableNo;
-		}
-		//throw "No of table is empty";
-	}
-
-	string GetTableNo()const noexcept {
-		return tableNo;
-	}
-	string GetContent()const noexcept {
-		return content;
-	}
-
-	friend ostream& operator<<(ostream& out, const ClientNotification& clientnotifications);
-};
-ostream& operator<<(ostream& out, const ClientNotification& clientnotifications) {
-	out << "Content : " << clientnotifications.GetContent() << endl;
-	out << "Table NO : " << clientnotifications.GetTableNo() << endl;
-	return out;
-}
-
-class Table {
-	string message;
-	string name;
-public:
-	static int notificationcount;
-	Stack<ClientNotification>clientnotification;
-	Stack<Notification>notifications;
-	Table() = default;
-	Table(const int& notif) {
-		SetCount(notificationcount);
-	}
-
-	void SetMessage(const string& message) {
-		this->message = message;
-	}
-	void SetCount(const int& notificationcount) {
-		this->notificationcount = notificationcount;
-	}
-	void SetName(const string& name) {
-		this->name = name;
-	}
-
-	string GetMessage() const {
-		return message;
-	}
-	int GetNotificationCount()const {
-		return notificationcount;
-	}
-	string GetName()const {
-		return name;
-	}
-
-	void AddNotification(const Notification& notification) {
-		notifications.Push(notification);
-	}
-};
-int Table::notificationcount = 0;
 
 class Product {
 	string name;
@@ -273,6 +151,8 @@ ostream& operator<<(ostream& out, const Product& products) {
 	out << "Product calories : " << products.calories << endl;
 	return out;
 }
+
+
 class Meal {
 	int id;
 	double price;
@@ -382,6 +262,129 @@ public:
 		return out;
 	}
 };
+
+
+class ClientNotification {
+	string content;
+	string tableNo;
+public:
+	ClientNotification() = default;
+	ClientNotification(const string& content, const string& tableNo) {
+		SetContent(content);
+		SetTableNo(tableNo);
+	}
+
+	void SetContent(const string& content) {
+		if (!content.empty()) {
+			this->content = content;
+		}
+		//throw "Content is null of client notification";
+	}
+	void SetTableNo(const string& tableNo) {
+		if (!tableNo.empty()) {
+			this->tableNo = tableNo;
+		}
+		//throw "No of table is empty";
+	}
+
+	string GetTableNo()const noexcept {
+		return tableNo;
+	}
+	string GetContent()const noexcept {
+		return content;
+	}
+
+	friend ostream& operator<<(ostream& out, const ClientNotification& clientnotifications);
+};
+ostream& operator<<(ostream& out, const ClientNotification& clientnotifications) {
+	out << "Content : " << clientnotifications.GetContent() << endl;
+	out << "Table NO : " << clientnotifications.GetTableNo() << endl;
+	return out;
+}
+
+class Notification {
+	int quantity;
+	string tableNo;
+public:
+	Stack<Meal>meals;
+	Notification() = default;
+	Notification(const int& quantity, const string& tableNo) {
+		SetNotificationQuantity(quantity);
+		SetTableNo(tableNo);
+	}
+	void SetNotificationQuantity(const int& quantity) {
+		if (quantity > 0) {
+			this->quantity = quantity;
+		}
+		//throw "Quantity of notification is null";
+	}
+	void SetTableNo(const string& tableNo) {
+		if (!tableNo.empty()) {
+			this->tableNo = tableNo;
+		}
+		//throw "No of table is empty";
+	}
+
+	int GetQuantity()const noexcept {
+		return quantity;
+	}
+	string GetTableNo()const noexcept {
+		return tableNo;
+	}
+
+	void AddMealToNotification(Meal* meal) {
+		meals.Push(*meal);
+	}
+	friend ostream& operator<<(ostream& out, const Notification& notifications);
+};
+ostream& operator<<(ostream& out, Notification& notifications) {
+	for (size_t i = 0; i < notifications.meals.GetSize(); i++)
+	{
+		out << notifications.meals[i] << endl;
+	}
+	out << "Meal count : " << notifications.GetQuantity() << endl;
+	out << "Table no : " << notifications.GetTableNo() << endl;
+	return out;
+}
+
+class Table {
+	string message;
+	string name;
+public:
+	static int notificationcount;
+	Stack<ClientNotification>clientnotification;
+	Stack<Notification>notifications;
+	Table() = default;
+	Table(const int& notif) {
+		SetCount(notificationcount);
+	}
+
+	void SetMessage(const string& message) {
+		this->message = message;
+	}
+	void SetCount(const int& notificationcount) {
+		this->notificationcount = notificationcount;
+	}
+	void SetName(const string& name) {
+		this->name = name;
+	}
+
+	string GetMessage() const {
+		return message;
+	}
+	int GetNotificationCount()const {
+		return notificationcount;
+	}
+	string GetName()const {
+		return name;
+	}
+
+	void AddNotification(const Notification& notification) {
+		notifications.Push(notification);
+	}
+};
+int Table::notificationcount = 0;
+
 int Meal::ID = 1;
 
 class Kitchen :public Meal {
@@ -783,11 +786,6 @@ void AdminMenu(Kitchen& k, Stock& s) {
 	}
 }
 
-//void SendNotification(Notification& n, Kitchen& k) {
-//	k.notification.Push(n);
-//	k.notificationCount++;
-//}
-
 
 void ClientMenu(double totalPrice, Client c, Kitchen k, Stock stock) {
 	c.ShowMenu();
@@ -818,7 +816,7 @@ void ClientMenu(double totalPrice, Client c, Kitchen k, Stock stock) {
 				ClientMenu(totalPrice, c, k, stock);
 			}
 			else if (select == 2) {
-
+				
 
 			}
 		}
@@ -993,8 +991,7 @@ void main() {
 		}
 		system("pause");
 	}
-#pragma endregion
+#pragma endregion	
 }
-
 
 
