@@ -564,15 +564,15 @@ public:
 };
 class Client {
 	Stack<Kitchen>menu;
-	Stack<Table>table;
+	int table;
 public:
 	string tableNo;
 	Client() = default;
-	Client(const string& tableNo) {
+	Client(const int& tableNo) {
 		SetTable(tableNo);
 	}
-	void SetTable(const string& tableNo) {
-		assert(!tableNo.empty() && "Table no is empty");
+	void SetTable(const int& tableNo) {
+		assert(tableNo > 0 && "Table no is empty");
 		this->tableNo = tableNo;
 	}
 	string GetTableNo()const {
@@ -642,7 +642,16 @@ public:
 
 string FileHelper::filename = "products.txt";
 
-void AdminMenu(Kitchen& k, Stock& s) {
+void SendNotificationToClient(ClientNotification& n, Table& t) {
+	t.clientnotification.Push(n);
+	t.notificationcount++;
+}
+void SendNotification(Notification& n1, Kitchen& k) {
+	k.notification.Push(n1);
+	k.notificationCount++;
+}
+
+void AdminMenu(Kitchen& k, Stock& s, Client& c, Table& t) {
 	system("cls");
 	cout << "[1] KITCHEN " << endl;
 	cout << "[2] STOCK   " << endl;
@@ -656,7 +665,8 @@ void AdminMenu(Kitchen& k, Stock& s) {
 		cout << "[1] Delete meal " << endl;
 		cout << "[2] Update meal" << endl;
 		cout << "[3] Add meal" << endl;
-		cout << "[4] Notification" << endl;
+		cout << "[4] Notifications" << "(" << k.notificationCount << ")" << endl << endl;
+		cout << "[5] Back" << endl;
 		cout << "Enter your select : ";
 		int select;
 		cin >> select;
@@ -679,7 +689,7 @@ void AdminMenu(Kitchen& k, Stock& s) {
 					cout << "Meal not found!" << endl;
 				}
 			}
-			AdminMenu(k, s);
+			AdminMenu(k, s, c, t);
 		}
 		else if (select == 2) {
 			cout << "Select meal id : ";
@@ -688,16 +698,40 @@ void AdminMenu(Kitchen& k, Stock& s) {
 			k.UptadeMeals(id);
 			cout << "Meal updated succesfully" << endl;
 			system("pause");
-			AdminMenu(k, s);
+			AdminMenu(k, s, c, t);
 		}
 		else if (select == 3) {
 			k.ShowName();
 			k.AddMeal();
-			AdminMenu(k, s);
+			AdminMenu(k, s, c, t);
 		}
 		else if (select == 4) {
-
-
+			for (size_t i = 0; i < k.notificationCount; i++)
+			{
+				k.notification.Show();
+			}
+			k.notificationCount--;
+			cout << "Reject [1]\nAccept [2]" << endl;
+			cout << "Enter your answer : ";
+			int answer;
+			cin >> answer;
+			int count;
+			if (answer == 1) {
+				string tableNo = c.GetTableNo();
+				int count;
+				static string content = "We can't preparing your order. Because we are very busy now";
+				ClientNotification n(content, tableNo);
+				SendNotificationToClient(n, t);
+			}
+			else if (answer == 2) {
+				string tableNo = c.GetTableNo();
+				static string content = "We preparing your order. Please wait 10 minutes";
+				ClientNotification n(content, tableNo);
+				SendNotificationToClient(n, t);
+			}
+			else if (answer == 4) {
+				AdminMenu(k, s, c, t);
+			}
 		}
 	}
 	else if (adminselect == 2) {
@@ -784,14 +818,16 @@ void AdminMenu(Kitchen& k, Stock& s) {
 	else if (adminselect == 3) {
 		return;
 	}
+
 }
 
 
-void ClientMenu(double totalPrice, Client c, Kitchen k, Stock stock) {
+void ClientMenu(double totalPrice, Client& c, Kitchen& k, Stock& stock, Notification& n, Table& t) {
+	system("cls");
 	c.ShowMenu();
 	cout << "[1] Select meal" << endl;
 	cout << "[2] Search meal" << endl;
-	cout << "[3] Notification" << endl;
+	cout << "[3] Notification" << "(" << t.notificationcount << ")" << endl;
 	cout << "Enter your select : ";
 	int choice;
 	cin >> choice;
@@ -812,6 +848,7 @@ void ClientMenu(double totalPrice, Client c, Kitchen k, Stock stock) {
 			cin >> count;
 			if (count > 0) {
 				auto meal = k.GetMealById(select);
+				string tableNo = c.GetTableNo();
 				totalPrice += count * meal->GetPrice();
 				cout << "Total price : " << totalPrice << " $" << endl;
 				cout << "[1] Continue" << endl;
@@ -820,11 +857,15 @@ void ClientMenu(double totalPrice, Client c, Kitchen k, Stock stock) {
 				int select;
 				cin >> select;
 				if (select == 1) {
-					ClientMenu(totalPrice, c, k, stock);
+					Notification n(count, tableNo);
+					n.AddMealToNotification(meal);
+					SendNotification(n, k);
+					ClientMenu(totalPrice, c, k, stock, n, t);
 				}
 				else if (select == 2) {
-
-
+					Notification n(count, tableNo);
+					n.AddMealToNotification(meal);
+					SendNotification(n, k);
 				}
 			}
 		}
@@ -858,13 +899,14 @@ void ClientMenu(double totalPrice, Client c, Kitchen k, Stock stock) {
 	}
 	else if (choice == 2) {
 		cout << "Enter meal name : ";
-		int a1;
+		int id1;
 		int num = 0;
 		for (size_t i = 0; i < 6; i++)
 		{
 			char meal = _getch();
 			cout << meal;
 			int b = k.GetMealCount();
+			id1 = int(meal);
 			for (size_t i3 = 0; i3 < k.GetMealCount(); i3++)
 			{
 				Meal meal1 = k.meals[i3];
@@ -875,11 +917,10 @@ void ClientMenu(double totalPrice, Client c, Kitchen k, Stock stock) {
 					char a = meal1.GetName()[i2];
 					if (meal1.GetName()[i2] == meal) {
 						string a = meal1.GetName();
-						cout << "[" << ++num << "] " << a << endl;
+						cout << "[" << meal1.GetId() << "] " << a << endl;
 					}
 					++i2;
 					if (meal1.GetName().length() == i2) {
-						a1 = i3;
 						break;
 					}
 				}
@@ -891,7 +932,8 @@ void ClientMenu(double totalPrice, Client c, Kitchen k, Stock stock) {
 
 			}
 		}
-		k.ShowMealById(a1);
+		id1 -= 48;
+		k.ShowMealById(id1);
 		cout << "[1] Order" << endl;
 		cout << "[2] Add ingredients" << endl;
 		cout << "Enter select : ";
@@ -902,7 +944,7 @@ void ClientMenu(double totalPrice, Client c, Kitchen k, Stock stock) {
 			int count;
 			cin >> count;
 			if (count > 0) {
-				auto meal = k.GetMealById(a1);
+				auto meal = k.GetMealById(id1);
 				totalPrice += count * meal->GetPrice();
 				cout << "Total price : " << totalPrice << " $" << endl;
 				cout << "[1] Continue" << endl;
@@ -911,7 +953,7 @@ void ClientMenu(double totalPrice, Client c, Kitchen k, Stock stock) {
 				int select;
 				cin >> select;
 				if (select == 1) {
-					ClientMenu(totalPrice, c, k, stock);
+					ClientMenu(totalPrice, c, k, stock, n, t);
 				}
 				else if (select == 2) {
 
@@ -931,7 +973,7 @@ void ClientMenu(double totalPrice, Client c, Kitchen k, Stock stock) {
 			double count;
 			cin >> count;
 			if (stock.ProductCount(id, count)) {
-				auto meal = k.GetMealById(a1);
+				auto meal = k.GetMealById(id1);
 				meal->AddProduct(*product);
 				totalPrice += meal->GetPrice();
 				double a = product->GetPrice();
@@ -941,26 +983,23 @@ void ClientMenu(double totalPrice, Client c, Kitchen k, Stock stock) {
 				cout << "Total price : " << totalPrice << " $" << endl;
 			}
 			else {
-				auto meal = k.GetMealById(a1);
+				auto meal = k.GetMealById(id1);
 				totalPrice += meal->GetPrice();
 				cout << "Ingredients out of stock" << endl;
 			}
 		}
-
-
-
 	}
-
+	if (choice == 3) {
+		for (size_t i = 0; i < t.notificationcount; i++)
+		{
+			t.clientnotification.Show();
+		}
+		t.notificationcount--;
+		system("pause");
+	}
 };
 
-void SendNotificationToClient(ClientNotification& n, Table& t) {
-	t.clientnotification.Push(n);
-	t.notificationcount++;
-}
-void SendNotification(Notification& n1, Kitchen& k) {
-	k.notification.Push(n1);
-	k.notificationCount++;
-}
+
 
 void main() {
 	Product p("Tomato", 0.4, 18, 100);
@@ -986,10 +1025,14 @@ void main() {
 	Kitchen k;
 	k.AddMeal(f);
 	k.AddMeal(f1);
-	Client c("T-20");
-	c.AddMenu(k);
+	Client c1;
+	c1.AddMenu(k);
 	//FileHelper::Save(stocksave);
 	Stock stock = FileHelper::Read();
+
+	Meal m;
+	Table t;
+	Notification n;
 
 #pragma region START
 	double totalPrice = 0;
@@ -1037,7 +1080,17 @@ void main() {
 		cin >> select;
 		if (select == "1") {
 			system("cls");
-			ClientMenu(totalPrice, c, k, stock);
+			cout << "1) Table T-20" << endl;
+			cout << "2) Table E-2" << endl;
+			cout << "3) Table Y-4" << endl;
+			cout << "4) Table EI-12" << endl;
+			cout << "5) Table ViP-1 " << endl;
+			cout << "Enter tableNo : ";
+			int tableNo;
+			cin >> tableNo;
+			Client c(tableNo);
+			c.AddMenu(k);
+			ClientMenu(totalPrice, c, k, stock, n, t);
 		}
 		else if (select == "2") {
 			system("cls");
@@ -1076,7 +1129,7 @@ void main() {
 				cout << endl;
 				if (username == "admin") {
 					if (password == "admin") {
-						AdminMenu(k, stock);
+						AdminMenu(k, stock, c1, t);
 						break;
 					}
 					else {
@@ -1096,5 +1149,15 @@ void main() {
 	}
 #pragma endregion	
 }
+
+
+
+
+
+
+
+
+
+
 
 
