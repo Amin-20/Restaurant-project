@@ -4,6 +4,7 @@
 #include<string.h>;
 #include"Entities.h";
 
+
 using namespace std;
 
 void SendNotificationToClient(ClientNotification& n, Table& t) {
@@ -17,27 +18,32 @@ void SendNotification(Notification& n1, Kitchen& k) {
 
 void AdminMenu(Kitchen& k, Stock& s, Client& c, Table& t) {
 	system("cls");
-	cout << "[1] KITCHEN " << endl;
-	cout << "[2] STOCK   " << endl;
-	cout << "[3] BACK   " << endl;
-	cout << "Enter select : ";
+	cout << endl;
+	cout << "                                                  [1] KITCHEN " << endl;
+	cout << "                                                  [2] STOCK   " << endl;
+	cout << "                                                  [3] BACK   " << endl;
+	cout << "                                                  Enter select : ";
 	int adminselect = 0;
 	cin >> adminselect;
 	if (adminselect == 1) {
-		cout << "-----KITCHEN-----" << endl;
+		system("cls");
+		cout << "                                               ---------KITCHEN---------                                               " << endl << endl;
 		k.ShowName();
-		cout << "[1] Delete meal " << endl;
-		cout << "[2] Update meal" << endl;
-		cout << "[3] Add meal" << endl;
-		cout << "[4] Notifications" << "(" << k.notificationCount << ")" << endl << endl;
-		cout << "[5] Back" << endl;
-		cout << "Enter your select : ";
+		cout << "                                                  [1] Delete meal " << endl;
+		cout << "                                                  [2] Update meal" << endl;
+		cout << "                                                  [3] Add meal" << endl;
+		cout << "                                                  [4] Notifications";
+		mysetcolor(5, 0);
+		cout << "(" << k.notificationCount << ")" << endl;
+		mysetcolor(7, 0);
+		cout << "                                                  [5] Back" << endl << endl;
+		cout << "                                                  Enter your select : ";
 		int select;
 		cin >> select;
 		if (select == 1) {
 			while (true)
 			{
-				cout << "Enter ID of meal : ";
+				cout << "                                                  Enter ID of meal : ";
 				int id;
 				cin >> id;
 				if (k.GetMealCount() >= id) {
@@ -45,22 +51,22 @@ void AdminMenu(Kitchen& k, Stock& s, Client& c, Table& t) {
 					k.MealsPop(id);
 					system("cls");
 					k.ShowName();
-					cout << endl << "Food deleted!" << endl;
+					cout << endl << "                                                  Food deleted!" << endl;
 					system("pause");
 					break;
 				}
 				else {
-					cout << "Meal not found!" << endl;
+					cout << "                                                  Meal not found!" << endl;
 				}
 			}
 			AdminMenu(k, s, c, t);
 		}
 		else if (select == 2) {
-			cout << "Select meal id : ";
+			cout << "                                                  Select meal id : ";
 			int id;
 			cin >> id;
 			k.UptadeMeals(id);
-			cout << "Meal updated succesfully" << endl;
+			cout << "                                                  Meal updated succesfully" << endl;
 			system("pause");
 			AdminMenu(k, s, c, t);
 		}
@@ -75,19 +81,19 @@ void AdminMenu(Kitchen& k, Stock& s, Client& c, Table& t) {
 				k.notification.Show();
 			}
 			k.notificationCount--;
-			cout << "Reject [1]\nAccept [2]" << endl;
-			cout << "Enter your answer : ";
+			cout << "                                                  Accept [1]\nReject [2]" << endl;
+			cout << "                                                  Enter your answer : ";
 			int answer;
 			cin >> answer;
 			int count;
-			if (answer == 1) {
+			if (answer == 2) {
 				int tableNo = c.GetTableNo();
 				int count;
 				static string content = "We can't preparing your order. Because we are very busy now";
 				ClientNotification n(content, tableNo);
 				SendNotificationToClient(n, t);
 			}
-			else if (answer == 2) {
+			else if (answer == 1) {
 				int tableNo = c.GetTableNo();
 				static string content = "We preparing your order. Please wait 10 minutes";
 				ClientNotification n(content, tableNo);

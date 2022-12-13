@@ -100,13 +100,13 @@ public:
 		if (!content.empty()) {
 			this->content = content;
 		}
-	
+
 	}
 	void SetTableNo(const int& tableNo) {
 		if (tableNo >= 0) {
 			this->tableNo = tableNo;
 		}
-	
+
 	}
 
 	int GetTableNo()const noexcept {
@@ -411,7 +411,7 @@ public:
 	void ShowName() {
 		for (size_t i = 0; i < meals.GetSize(); i++)
 		{
-			cout << meals[i].GetId() << ". " << meals[i].GetName() << " - " << meals[i].GetPrice() << " $" << endl;
+			cout << "                                                  " << meals[i].GetId() << ". " << meals[i].GetName() << " - " << meals[i].GetPrice() << " $" << endl << endl;
 		}
 	}
 	void ShowMealById(int id) {
@@ -526,7 +526,9 @@ public:
 	void ShowMenu() {
 		for (size_t i = 0; i < menu.GetSize(); i++)
 		{
+			cout << endl;
 			menu[i].ShowName();
+			cout << endl << endl;
 		}
 	}
 };
@@ -551,6 +553,7 @@ public:
 	auto* GetProductById(int index) {
 		for (size_t i = 0; i < products.size(); i++)
 		{
+			int id = products[i].GetId();
 			if (products[i].GetId() == index) {
 				return &products[i];
 			}
@@ -599,7 +602,7 @@ public:
 			fout << count1 << endl;
 			for (size_t i = 0; i < stock.products.size(); i++)
 			{
-				fout << stock.products[i].GetName() << " " << stock.products[i].GetPrice() << " " << stock.products[i].GetCalories() << " " << stock.products[i].GetCount() << endl;
+				fout << stock.products[i].GetId() << " " << stock.products[i].GetName() << " " << stock.products[i].GetPrice() << " " << stock.products[i].GetCalories() << " " << stock.products[i].GetCount() << endl;
 			}
 			fout.close();
 		}
@@ -617,15 +620,18 @@ public:
 			for (size_t i = 0; i < count1; i++)
 			{
 				Product p;
+				int id;
 				string name;
 				double price;
 				double calories;
 				int count;
 
+				fin >> id;
 				fin >> name;
 				fin >> price;
 				fin >> calories;
 				fin >> count;
+				p.SetId(id);
 				p.SetName(name);
 				p.SetPrice(price);
 				p.SetCalories(calories);

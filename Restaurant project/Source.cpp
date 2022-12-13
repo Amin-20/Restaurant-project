@@ -30,12 +30,12 @@ void main() {
 	stocksave.AddProduct(p2);
 	stocksave.AddProduct(p3);
 	stocksave.AddProduct(p4);
-	Meal f(20, "Moz");
+	Meal f(20, "Mozerella");
 	f.AddProduct(p);
 	f.AddProduct(p1);
 	f.AddProduct(p2);
 	f.AddProduct(p3);
-	Meal f1(13, "SeMzar");
+	Meal f1(13, "Sezar");
 	f1.AddProduct(p);
 	f1.AddProduct(p1);
 	Kitchen k;
@@ -56,30 +56,18 @@ void main() {
 	{
 		system("cls");
 
+		mysetcolor(4, 0);																					                                                                                             
+		cout << "                                                                                               (                                                                                                     " << endl;
+		cout << "                                                                              *   )   )        )\\ ) (                      (  (           )                                                         " << endl;
+		cout << "                                                                            ` )  /(( /(   (   (()/( )\\(   (        (  (    )\\))(   '   ( /(                                                        " << endl;
+		cout << "                                                                             ( )(_))\\()) ))\\   /(_)|(_)\\ ))\\  (    )\\))(  ((_)()\\ ) (  )\\())                                                  " << endl;
+		cout << "                                                                            (_(_()|(_)\\ /((_) (_))_|_(()/((_) )\\ )((_))\\  _(())\\_)())\\((_)\\                                                    " << endl;
 		mysetcolor(11, 0);
-		cout << "                                                          _____                    _____                    _____                    _____                _____          	                         " << endl;
-		cout << "                                                         /\\    \\                  /\\    \\                  /\\    \\                  /\\    \\              /\\    \\         	             " << endl;
-		cout << "                                                        /::\\    \\                /::\\    \\                /::\\    \\                /::\\    \\            /::\\    \\        	             " << endl;
-		cout << "                                                       /::::\\    \\              /::::\\    \\              /::::\\    \\              /::::\\    \\           \\:::\\    \\       	             " << endl;
-		cout << "                                                      /::::::\\    \\            /::::::\\    \\            /::::::\\    \\            /::::::\\    \\           \\:::\\    \\      	             " << endl;
-		cout << "                                                     /:::/\\:::\\    \\          /:::/\\:::\\    \\          /:::/\\:::\\    \\          /:::/\\:::\\    \\           \\:::\\    \\     	         " << endl;
-		cout << "                                                    /:::/  \\:::\\    \\        /:::/__\\:::\\    \\        /:::/__\\:::\\    \\        /:::/__\\:::\\    \\           \\:::\\    \\    	         " << endl;
-		cout << "                                                   /:::/    \\:::\\    \\      /::::\\   \\:::\\    \\      /::::\\   \\:::\\    \\      /::::\\   \\:::\\    \\          /::::\\    \\   	         " << endl;
-		cout << "                                                  /:::/    / \\:::\\    \\    /::::::\\   \\:::\\    \\    /::::::\\   \\:::\\    \\    /::::::\\   \\:::\\    \\        /::::::\\    \\  	         " << endl;
-		cout << "                                                 /:::/    /   \\:::\\ ___\\  /:::/\\:::\\   \\:::\\____\\  /:::/\\:::\\   \\:::\\    \\  /:::/\\:::\\   \\:::\\    \\      /:::/\\:::\\    \\       " << endl;
-		cout << "                                                /:::/____/  ___\\:::|    |/:::/  \\:::\\   \\:::|    |/:::/__\\:::\\   \\:::\\____\\/:::/  \\:::\\   \\:::\\____\\    /:::/  \\:::\\____\\	         " << endl;
-		cout << "                                                \\:::\\    \\ /\\  /:::|____|\\::/   |::::\\  /:::|____|\\:::\\   \\:::\\   \\::/    /\\::/    \\:::\\  /:::/    /   /:::/    \\::/    /	         " << endl;
-		cout << "                                                 \\:::\\    /::\\ \\::/    /  \\/____|:::::\\/:::/    /  \\:::\\   \\:::\\   \\/____/  \\/____/ \\:::\\/:::/    /   /:::/    / \\/____/ 	         " << endl;
-		cout << "                                                  \\:::\\   \\:::\\ \\/____/         |:::::::::/    /    \\:::\\   \\:::\\    \\               \\::::::/    /   /:::/    /          	             " << endl;
-		cout << "                                                   \\:::\\   \\:::\\____\\           |::|\\::::/    /      \\:::\\   \\:::\\____\\               \\::::/    /   /:::/    /           	             " << endl;
-		cout << "                                                    \\:::\\  /:::/    /           |::| \\::/____/        \\:::\\   \\::/    /               /:::/    /    \\::/    /                                " << endl;
-		cout << "                                                     \\:::\\/:::/    /            |::|  ~|               \\:::\\   \\/____/               /:::/    /      \\/____/                                  " << endl;
-		cout << "                                                      \\::::::/    /             |::|   |                \\:::\\    \\                  /:::/    /                           	                     " << endl;
-		cout << "                                                       \\::::/    /              \\::|   |                 \\:::\\____\\                /:::/    /                            	                     " << endl;
-		cout << "                                                        \\::/____/                \\:|   |                  \\::/    /                \\::/    /                             	                     " << endl;
-		cout << "                                                                                  \\|___|                   \\/____/                  \\/____/                              	                     " << endl;
-		cout << "                                                                                                                                                                            	                     " << endl;
-		cout << "                                                                                                                                                                                                    " << endl;
+		cout << "                                                                            |_   _| |(_|_))   | |_ | |)(_)|_)_(_/( (()(_) \\ \\((_)/ ((_) |(_)                                                       " << endl;
+		cout << "                                                                              | | | ' \\/ -_)  | __|| | || | | ' \\)) _` |   \\ \\/\\/ / _ \\ / /                                                    " << endl;
+		cout << "                                                                              |_| |_||_\\___|  |_|  |_|\\_, |_|_||_|\\__, |    \\_/\\_/\\___/_\\_\\                                                  " << endl;
+		cout << "                                                                                                      |__/        |___/                                                                              " << endl;		
+		cout << "                                                                                                                                                                                                     " << endl;
 		mysetcolor(3, 0);
 		cout << "                                                                                                  _                              _                                     	                         " << endl;
 		cout << "                                                                                    _ __ ___  ___| |_ __ _ _   _ _ __ __ _ _ __ | |_ 	                                                             " << endl;
@@ -94,14 +82,16 @@ void main() {
 		cout << "                                                                                                    Enter select [1/2] : ";
 		string select;
 		cin >> select;
+		cout << endl << endl;
 		if (select == "1") {
-			system("cls");
-			cout << "1) Table T-20" << endl;
-			cout << "2) Table E-2" << endl;
-			cout << "3) Table Y-4" << endl;
-			cout << "4) Table EI-12" << endl;
-			cout << "5) Table ViP-1 " << endl;
-			cout << "Enter tableNo : ";
+			mysetcolor(14, 0);
+			cout << "                                                                                                   1) Table T-20" << endl << endl;
+			cout << "                                                                                                   2) Table E-2" << endl << endl;
+			cout << "                                                                                                   3) Table Y-4" << endl << endl;
+			cout << "                                                                                                   4) Table EI-12" << endl << endl;
+			cout << "                                                                                                   5) Table ViP-1 " << endl << endl;
+			cout << "                                                                                                   Enter tableNo : ";
+			
 			int tableNo;
 			cin >> tableNo;
 			Client c(tableNo);
@@ -115,11 +105,12 @@ void main() {
 				cin.ignore();
 				cin.clear();
 				system("cls");
-				cout << "Enter username : ";
+				cout << endl;
+				cout << "                                                  Enter username : ";
 				string username;
 				getline(cin, username);
 				system("cls");
-				cout << "Enter Password: ";
+				cout << "                                                  Enter Password: ";
 				string password, P;
 				char p;
 				p = _getch();
@@ -139,7 +130,7 @@ void main() {
 					p = _getch();
 					if (p != 13) {
 						system("cls");
-						cout << "Enter Password: ";
+						cout << "                                                  Enter Password: ";
 					}
 				}
 				cout << endl;
@@ -149,31 +140,26 @@ void main() {
 						break;
 					}
 					else {
-						cout << "Wrong password!" << endl;
+						mysetcolor(4, 0);
+						cout << "                                                  Wrong password!" << endl;
+						mysetcolor(7, 0);
 					}
 				}
 				else {
-					cout << "Wrong username!" << endl;
+					mysetcolor(4, 0);
+					cout << "                                                  Wrong username!" << endl;
+					mysetcolor(7, 0);
 				}
 			}
 		}
 		else {
-			cout << "Your select is incorrect!!!\n";
-			cout << "Please enter retry" << endl;
+			cout << "                                                  Your select is incorrect!!!\n";
+			cout << "                                                  Please enter retry" << endl;
 		}
 		system("pause");
 	}
 #pragma endregion	
 }
-
-
-
-
-
-
-
-
-
 
 
 
