@@ -119,8 +119,8 @@ public:
 	friend ostream& operator<<(ostream& out, const ClientNotification& clientnotifications);
 };
 ostream& operator<<(ostream& out, const ClientNotification& clientnotifications) {
-	out << "Content : " << clientnotifications.GetContent() << endl;
-	out << "Table NO : " << clientnotifications.GetTableNo() << endl;
+	out << "                                                  Content : " << clientnotifications.GetContent() << endl;
+	out << "                                                  Table NO : " << clientnotifications.GetTableNo() << endl;
 	return out;
 }
 

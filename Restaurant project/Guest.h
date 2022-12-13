@@ -10,7 +10,10 @@ void ClientMenu(double totalPrice, Client& c, Kitchen& k, Stock& stock, Notifica
 	c.ShowMenu();
 	cout << "                                                  [1] Select meal" << endl;
 	cout << "                                                  [2] Search meal" << endl;
-	cout << "                                                  [3] Notification" << "(" << t.notificationcount << ")" << endl;
+	cout << "                                                  [3] Notification";
+	mysetcolor(5, 0);
+	cout << "(" << t.notificationcount << ")" << endl;
+	mysetcolor(14, 0);
 	cout << "                                                  [4] Back" << endl;
 	cout << "                                                  Enter your select : ";
 	int choice;

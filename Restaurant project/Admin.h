@@ -7,6 +7,11 @@
 
 using namespace std;
 
+void mysetcolor(int fg, int bg)
+{
+	HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE); SetConsoleTextAttribute(h, fg | (bg << 4));
+}
+
 void SendNotificationToClient(ClientNotification& n, Table& t) {
 	t.clientnotification.Push(n);
 	t.notificationcount++;
@@ -89,13 +94,13 @@ void AdminMenu(Kitchen& k, Stock& s, Client& c, Table& t) {
 			if (answer == 2) {
 				int tableNo = c.GetTableNo();
 				int count;
-				static string content = "We can't preparing your order. Because we are very busy now";
+				static string content = "                                                  We can't preparing your order. Because we are very busy now";
 				ClientNotification n(content, tableNo);
 				SendNotificationToClient(n, t);
 			}
 			else if (answer == 1) {
 				int tableNo = c.GetTableNo();
-				static string content = "We preparing your order. Please wait 10 minutes";
+				static string content = "                                                  We preparing your order. Please wait 10 minutes";
 				ClientNotification n(content, tableNo);
 				SendNotificationToClient(n, t);
 			}
@@ -107,13 +112,13 @@ void AdminMenu(Kitchen& k, Stock& s, Client& c, Table& t) {
 	else if (adminselect == 2) {
 		while (true) {
 			system("cls");
-			cout << "\n<><><><><><>STOCK<><><><><><>" << endl << endl;
-			cout << "[1] Show Ingredients" << endl;
-			cout << "[2] Add Ingredients" << endl;
-			cout << "[3] Delete Ingredients" << endl;
-			cout << "[4] Update ingredients count" << endl;
-			cout << "[5] BACK" << endl;
-			cout << "Select : ";
+			cout << "\n                                                  <><><><><><>STOCK<><><><><><>" << endl << endl;
+			cout << "                                                  [1] Show Ingredients" << endl;
+			cout << "                                                  [2] Add Ingredients" << endl;
+			cout << "                                                  [3] Delete Ingredients" << endl;
+			cout << "                                                  [4] Update ingredients count" << endl;
+			cout << "                                                  [5] BACK" << endl;
+			cout << "                                                  Select : ";
 			int select;
 			cin >> select;
 			if (select == 1) {
@@ -123,20 +128,20 @@ void AdminMenu(Kitchen& k, Stock& s, Client& c, Table& t) {
 			else if (select == 2) {
 				cin.ignore();
 				cin.clear();
-				cout << "Enter ingredients name : ";
+				cout << "                                                  Enter ingredients name : ";
 				string name;
 				getline(cin, name);
 
-				cout << "Enter ingredients price : ";
+				cout << "                                                  Enter ingredients price : ";
 				double price;
 				cin >> price;
 
-				cout << "Enter ingredients calories : ";
+				cout << "                                                  Enter ingredients calories : ";
 				double calories;
 				cin >> calories;
 
 
-				cout << "Enter ingredient count : ";
+				cout << "                                                  Enter ingredient count : ";
 				int count;
 				cin >> count;
 
@@ -144,41 +149,41 @@ void AdminMenu(Kitchen& k, Stock& s, Client& c, Table& t) {
 				s.AddProduct(p);
 				remove("products.txt");
 				FileHelper::Save(s);
-				cout << "Ingredient added successfully" << endl;
+				cout << "                                                  Ingredient added successfully" << endl;
 				system("pause");
 			}
 			else if (select == 3) {
 				s.Show();
-				cout << "Enter id of ingredients : ";
+				cout << "                                                  Enter id of ingredients : ";
 				int id;
 				cin >> id;
 				--id;
 				s.DeleteIngredientsByID(id);
 				remove("products.txt");
 				FileHelper::Save(s);
-				cout << "Ingredient deleted successfully" << endl;
+				cout << "                                                  Ingredient deleted successfully" << endl;
 				system("pause");
 			}
 			else if (select == 4) {
 				s.ShowProductCount();
-				cout << "Enter id of ingredient : ";
+				cout << "                                                  Enter id of ingredient : ";
 				int id1;
 				cin >> id1;
 				Product* p = s.GetProductById(id1);
-				cout << "Enter new count : ";
+				cout << "                                                  Enter new count : ";
 				int count;
 				cin >> count;
 				p->SetCount(count);
 				remove("products.txt");
 				FileHelper::Save(s);
-				cout << "Count uptaded successfully" << endl;
+				cout << "                                                  Count uptaded successfully" << endl;
 
 			}
 			else if (select == 5) {
 				break;
 			}
 			else {
-				cout << "Invalid select !!" << endl;
+				cout << "                                                  Invalid select !!" << endl;
 				system("pause");
 			}
 		}
